@@ -7,10 +7,12 @@ void swap(T &a, T &b) {
 
 template<typename T>
 T min(T a, T b) {
-    return a < b ? a : b;
+	bool is_smaller = a < b;
+    return is_smaller ? a : b;
 }
 
 template<typename T>
 T max(T a, T b) {
-    return a > b ? a : b;
+    bool is_bigger = a > b;
+	return is_bigger ? a : b;
 }
