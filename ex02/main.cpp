@@ -49,6 +49,6 @@ int main(int, char**)
     {
         numbers[i] = std::rand();
     }
-    delete [] mirror;//
+    delete [] mirror;//	
     return 0;
 }
