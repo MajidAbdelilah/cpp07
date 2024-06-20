@@ -1,49 +1,54 @@
-#include "Array.hpp"
-#include <exception>
 #include <iostream>
+#include "../ex02/Array.hpp"
+#include <cstdlib>
 
-int main()
+#define MAX_VAL 750
+int main(int, char**)
 {
-    Array<int> arr(5);
-    for (unsigned int i = 0; i < arr.size(); i++)
+    Array<int> numbers(MAX_VAL);
+    int* mirror = new int[MAX_VAL];
+    std::srand(time(NULL));
+    for (int i = 0; i < MAX_VAL; i++)
     {
-        arr[i] = i + 1;
+        const int value = std::rand();
+        numbers[i] = value;
+        mirror[i] = value;
     }
-    for (unsigned int i = 0; i < arr.size(); i++)
+    //SCOPE
     {
-        std::cout << arr[i] << std::endl;
+        Array<int> tmp = numbers;
+        Array<int> test(tmp);
     }
-    Array<float> f_arr;
-    try {
-        f_arr[0] = 21.12;
-    } catch (std::exception &e) {
-        std::cerr << e.what() << std::endl;
+
+    for (int i = 0; i < MAX_VAL; i++)
+    {
+        if (mirror[i] != numbers[i])
+        {
+            std::cerr << "didn't save the same value!!" << std::endl;
+            return 1;
+        }
     }
-    Array<int> arr2(arr);
-	for (unsigned int i = 0; i < arr2.size(); i++)
-	{
-		std::cout << arr2[i] << std::endl;
-	}
-	std::cout << "---------------------\n";
-	Array<int> arr3;
-	arr3 = arr2;
-	try {
-		for (unsigned int i = 0; i < (arr3.size() + 5); i++)
-		{
-			std::cout << arr3[i] << std::endl;
-		}
-	} catch (std::exception &e) {
-		std::cerr << e.what() << std::endl;
-	}
-	Array<double> d_arr(10);
-	for (unsigned int i = 0; i < d_arr.size(); i++)
-	{
-		d_arr[i] = i + 1 + .5f;
-	}
-	for (unsigned int i = 0; i < d_arr.size(); i++)
-	{
-		std::cout << d_arr[i] << std::endl;
-	}
-	std::cout << "size of d_arr: " << d_arr.size() << std::endl;
-	return 0;
+    try
+    {
+        numbers[-2] = 0;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    try
+    {
+        numbers[MAX_VAL] = 0;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+
+    for (int i = 0; i < MAX_VAL; i++)
+    {
+        numbers[i] = std::rand();
+    }
+    delete [] mirror;//
+    return 0;
 }
