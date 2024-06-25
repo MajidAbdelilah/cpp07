@@ -1,3 +1,4 @@
+#pragma once
 template<typename T>
 void iter(T *arr, unsigned long length, void (*f)(T &)) {
     if(arr == 0)
